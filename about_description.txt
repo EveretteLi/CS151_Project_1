@@ -1,0 +1,35 @@
+Task Board
+================================
+Required Functionality:
+
+Login:
+	usename-admin
+	password-preset
+
+Create new project:
+	Edit button:
+		add/delete column or change name
+
+Main Screen:
+	show task in appropriate column
+
+Create a new task:
+	create new task with name, description, status and due date
+
+Edit a task:
+	create a task
+	modify a task
+
+save existing task board
+	when the save button is clicked
+
+load a saved task board
+	promt user for a filename
+	check if it exist
+
+-------------------------------
+Model-View-Controller:
+-------------------------------
+Work distribution: have one person on UI.
+
+
