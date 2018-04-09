@@ -1,0 +1,11 @@
+Class:
+	TaskBoard: ( a class that put everything together )
+	?User:( stores the imformation(name, password) of users. User holds projects )
+	Task: ( has name, discription, due date and status )
+	Project: ( project will remenber all the task imformation in it )
+		?Column:( a logic group that holds tasks in project )
+
+---------------------------------------------------------------
+How to add columns?
+What should TaskBoard contains?
+How to save and load?
