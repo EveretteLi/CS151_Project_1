@@ -9,19 +9,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * Task class
  */
-public class Task {
-    private String name, description, status, dueDate;
+public class Task implements Comparable<Task> {
+    public String name, description, status, dueDate;
     private GridPane taskForm;
     private Project onProject;// the project this task'll be in
 
     public Task(Project project) {
         this.onProject = project;
+        this.dueDate = "0/0/0";
         createTask();
     }
+    public Task(){}
 
     public String getStatus() {
         return status;
@@ -29,6 +33,10 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    public String getDueDate() {
+        return dueDate;
     }
 
     /**
@@ -65,6 +73,7 @@ public class Task {
         HBox dueDate = new HBox(8);
         Text ddText  = new Text("Due Date");
         TextField ddField = new TextField();
+        ddField.setPromptText("MM/DD/YY");
         dueDate.getChildren().addAll(ddText, ddField);
         layout.add(dueDate, 0, 3);
 
@@ -80,6 +89,7 @@ public class Task {
             this.status = status.getValue();
             this.dueDate = ddField.getText();
             this.taskForm = layout;
+            onProject.getTaskSet().add(this);
             onProject.loadColumn();
             stage.close();
         });
@@ -103,6 +113,51 @@ public class Task {
         return taskReport;
     }
 
-    public static void sop(Object x){System.out.println(x);}
+    public int compareTo(Task that) {
+        // get 2 string arrays
+        String[] thatIntegerString = that.getDueDate().split("/");
+        String[] thisIntegerString = this.getDueDate().split("/");
+        sop("that: "+Arrays.toString(thatIntegerString));
+        sop("this: "+Arrays.toString(thisIntegerString));
+        // convert them to int[]
+        int[] thatIntArray = new int[thatIntegerString.length];
+        int[] thisIntArray = new int[thisIntegerString.length];
+        for(int i = 0; i < thatIntArray.length; i++)
+            thatIntArray[i] = Integer.parseInt(thatIntegerString[i]);
+        for(int i = 0; i < thisIntArray.length; i++)
+            thisIntArray[i] = Integer.parseInt(thisIntegerString[i]);
+        sop("int: "+Arrays.toString(thatIntArray));
+        sop("int: "+Arrays.toString(thisIntArray));
+
+        //year
+        if(thisIntArray[2] == thatIntArray[2]) {
+            // month
+            if(thisIntArray[0] == thatIntArray[0]) {
+                //day
+                return thisIntArray[1] - thatIntArray[1];
+            }
+            else{
+                return thisIntArray[0] - thatIntArray[0];
+            }
+        }
+        else{
+            return thisIntArray[2] - thatIntArray[2];
+        }
+    }
+    @Override
+    public boolean equals(Object ob) {
+        if(!(ob instanceof Task)) return false;
+        Task that = (Task) ob;
+        return this.compareTo(that) == 0;
+    }
+    public static void sop(Object x){ System.out.println(x);}
+
+    public static void main(String[] args){
+        Task a = new Task();
+        a.dueDate = "3/2/2018";
+        Task b = new Task();
+        b.dueDate = "3/2/2018";
+        sop(a.compareTo(b));
+    }
 
 }
