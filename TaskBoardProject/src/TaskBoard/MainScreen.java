@@ -43,7 +43,8 @@ public class MainScreen {
         // main screen should should contains following buttons
         // New Project: create new project
         // New Task: to create a task in the running project
-        // Edit: edit current project(rename, add column)
+        // Edit Project: edit current project(rename, add column)
+        // Edit Task: edit task by clicking it
         // Save: save current project
         // Load: load a existing project
         // Logout

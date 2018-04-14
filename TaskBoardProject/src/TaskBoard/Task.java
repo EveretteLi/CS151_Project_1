@@ -10,6 +10,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 /**
@@ -24,6 +26,13 @@ public class Task implements Comparable<Task> {
         this.onProject = project;
         this.dueDate = "0/0/0";
         createTask();
+    }
+    public Task(Project project, String name, String description, String status, String dueDate) {
+        this.onProject = project;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
     }
     public Task(){}
 
@@ -94,7 +103,6 @@ public class Task implements Comparable<Task> {
             stage.close();
         });
         cancelBtn.setOnAction(e -> {
-            System.out.println("Cancel");
             stage.close();
         });
 
@@ -110,8 +118,72 @@ public class Task implements Comparable<Task> {
         taskReport.add(name, 0,0);
         taskReport.add(description, 0, 1);
         taskReport.add(dueDate, 0, 2);
+        taskReport.setOnMouseClicked(e -> {
+            editTask();
+        });
         return taskReport;
     }
+
+    public void editTask() {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(this.name);
+        // create grid panel that holds everything
+        GridPane layout = new GridPane();
+        // each line will be in a HBox
+        // name
+        HBox name = new HBox(8);
+        Text nameText = new Text("Task name:");
+        TextField nameField = new TextField(this.name);
+        name.getChildren().addAll(nameText, nameField);
+        layout.add(name, 0,0);
+        // description
+        HBox description = new HBox(8);
+        Text desText = new Text("Task Description:");
+        TextField desField = new TextField(this.description);
+        description.getChildren().addAll(desText, desField);
+        layout.add(description, 0,1);
+        // status
+        ChoiceBox<String> status = new ChoiceBox<>();
+        status.getItems().addAll(onProject.getColumns());
+        status.setValue(this.status);
+        layout.add(status, 0, 2);
+        // due date
+        HBox dueDate = new HBox(8);
+        Text ddText  = new Text("Due Date");
+        TextField ddField = new TextField(this.dueDate);
+        dueDate.getChildren().addAll(ddText, ddField);
+        layout.add(dueDate, 0, 3);
+
+        // create and Cancel button
+        HBox createAndCancel = new HBox(8);
+        Button doneBtn = new Button("Done");
+        Button cancelBtn = new Button("Cancel");
+        createAndCancel.getChildren().addAll(doneBtn, cancelBtn);
+        layout.add(createAndCancel, 0,4);
+        doneBtn.setOnAction(e -> {
+            this.name = nameField.getText();
+            this.description = desField.getText();
+            this.status = status.getValue();
+            this.dueDate = ddField.getText();
+            this.taskForm = layout;
+            Set<Task> temp = onProject.getTaskSet();
+            TreeSet<Task> newTaskSet = new TreeSet<>();
+            for(Task each : temp) {
+                newTaskSet.add(each);
+            }
+            onProject.setTaskSet(newTaskSet);
+            onProject.loadColumn();
+            stage.close();
+        });
+        cancelBtn.setOnAction(e -> {
+            stage.close();
+        });
+
+        stage.setScene(new Scene(layout, Main.POPUPWIDTH, Main.POPUPHIGHT));
+        stage.show();
+    }
+
 
     public int compareTo(Task that) {
         // get 2 string arrays
@@ -148,16 +220,35 @@ public class Task implements Comparable<Task> {
     public boolean equals(Object ob) {
         if(!(ob instanceof Task)) return false;
         Task that = (Task) ob;
-        return this.compareTo(that) == 0;
+        // same name, status, due date
+        if(name.equals(that.name) && status.equals(that.status) && (this.compareTo(that) == 0))
+            return true;
+        return false;
     }
+    @Override
+    public int hashCode(){
+        Object[] getHash = new Object[]{name, description, status, dueDate};
+        return getHash.hashCode();
+    }
+    @Override
+    public String toString() {
+        StringBuffer sf = new StringBuffer();
+        sf.append(this.getName() +" : " + this.status + " : " + this.dueDate);
+        return sf.toString();
+    }
+
     public static void sop(Object x){ System.out.println(x);}
 
     public static void main(String[] args){
-        Task a = new Task();
-        a.dueDate = "3/2/2018";
-        Task b = new Task();
-        b.dueDate = "3/2/2018";
-        sop(a.compareTo(b));
+        TreeSet<Integer> i = new TreeSet<>();
+        i.add(1);
+        i.add(2);
+        i.add(3);
+        sop(i);
+        i.remove(2);
+        i.add(0);
+        sop(i);
+
     }
 
 }
