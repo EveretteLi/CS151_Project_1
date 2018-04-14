@@ -15,11 +15,20 @@ import javafx.stage.Stage;
  */
 public class Task {
     private String name, description, status, dueDate;
+    private GridPane taskForm;
     private Project onProject;// the project this task'll be in
 
     public Task(Project project) {
         this.onProject = project;
         createTask();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**
@@ -70,11 +79,8 @@ public class Task {
             this.description = desField.getText();
             this.status = status.getValue();
             this.dueDate = ddField.getText();
-            sop("Created");
-            sop(this.name);
-            sop(this.description);
-            sop(this.status);
-            sop(this.dueDate);
+            this.taskForm = layout;
+            onProject.loadColumn();
             stage.close();
         });
         cancelBtn.setOnAction(e -> {
@@ -84,6 +90,17 @@ public class Task {
 
         stage.setScene(new Scene(layout, Main.POPUPWIDTH, Main.POPUPHIGHT));
         stage.show();
+    }
+
+    public GridPane getTaskInGridPane() {
+        GridPane taskReport  = new GridPane();
+        Text name = new Text("Task Name: " + this.name);
+        Text description = new Text("Description: " + this.description);
+        Text dueDate = new Text("Due Date: " + this.dueDate);
+        taskReport.add(name, 0,0);
+        taskReport.add(description, 0, 1);
+        taskReport.add(dueDate, 0, 2);
+        return taskReport;
     }
 
     public static void sop(Object x){System.out.println(x);}

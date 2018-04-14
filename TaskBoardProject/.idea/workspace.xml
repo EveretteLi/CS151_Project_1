@@ -24,7 +24,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TaskBoard/MainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
@@ -39,14 +39,26 @@
       <file leaf-file-name="Project.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TaskBoard/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2076">
-              <caret line="234" column="60" lean-forward="false" selection-start-line="234" selection-start-column="60" selection-end-line="234" selection-end-column="60" />
+            <state relative-caret-position="173">
+              <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1174#1175#0" expanded="true" />
-                <element signature="e#1207#1208#0" expanded="true" />
-                <element signature="e#1433#1434#0" expanded="true" />
-                <element signature="e#1468#1469#0" expanded="true" />
+                <element signature="e#1287#1288#0" expanded="true" />
+                <element signature="e#1320#1321#0" expanded="true" />
+                <element signature="e#1546#1547#0" expanded="true" />
+                <element signature="e#1581#1582#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/TaskBoard/Login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,10 +67,14 @@
       <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TaskBoard/Task.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+            <state relative-caret-position="361">
+              <caret line="102" column="26" lean-forward="false" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
+                <element signature="e#670#671#0" expanded="true" />
+                <element signature="e#701#702#0" expanded="true" />
+                <element signature="e#728#729#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,10 +104,10 @@
         <option value="$PROJECT_DIR$/src/TaskBoard/loginView.fxml" />
         <option value="$PROJECT_DIR$/src/TaskBoard/logicController.java" />
         <option value="$PROJECT_DIR$/src/TaskBoard/Main.java" />
-        <option value="$PROJECT_DIR$/src/TaskBoard/Login.java" />
-        <option value="$PROJECT_DIR$/src/TaskBoard/Task.java" />
-        <option value="$PROJECT_DIR$/src/TaskBoard/Project.java" />
         <option value="$PROJECT_DIR$/src/TaskBoard/MainScreen.java" />
+        <option value="$PROJECT_DIR$/src/TaskBoard/Project.java" />
+        <option value="$PROJECT_DIR$/src/TaskBoard/Task.java" />
+        <option value="$PROJECT_DIR$/src/TaskBoard/Login.java" />
       </list>
     </option>
   </component>
@@ -280,12 +296,12 @@
       <workItem from="1523304080301" duration="5292000" />
       <workItem from="1523330139889" duration="14871000" />
       <workItem from="1523569639876" duration="7968000" />
-      <workItem from="1523664709742" duration="8666000" />
+      <workItem from="1523664709742" duration="10541000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36822000" />
+    <option name="totallyTimeSpent" value="38697000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -475,10 +491,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TaskBoard/Login.java">
+    <entry file="file://$PROJECT_DIR$/src/TaskBoard/MainScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1002">
-          <caret line="67" column="5" lean-forward="true" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -487,32 +503,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TaskBoard/Task.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        <state relative-caret-position="361">
+          <caret line="102" column="26" lean-forward="false" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#670#671#0" expanded="true" />
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#728#729#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TaskBoard/Project.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2076">
-          <caret line="234" column="60" lean-forward="false" selection-start-line="234" selection-start-column="60" selection-end-line="234" selection-end-column="60" />
+        <state relative-caret-position="173">
+          <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1174#1175#0" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1433#1434#0" expanded="true" />
-            <element signature="e#1468#1469#0" expanded="true" />
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1320#1321#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+            <element signature="e#1581#1582#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TaskBoard/MainScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/TaskBoard/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

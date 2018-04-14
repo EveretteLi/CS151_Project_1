@@ -35,9 +35,10 @@ public class Login {
         // loginBtn listener
         // once it got clicked, jump to main screen stage
         loginBtn.setOnAction(e -> {
-            if(checkValidity(username.getText(), password.getText()))
+            if(checkValidity(username.getText(), password.getText())) {
                 Main.toMainScreen();
-            this.loginStage.close();
+                this.loginStage.close();
+            }
         });
         //set login scene
         loginStage.setScene(new Scene(loginLayout, 300, 600));

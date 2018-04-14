@@ -1,6 +1,7 @@
 package TaskBoard;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -26,6 +27,7 @@ public class Project {
     private ArrayList<String> columns;
     private ArrayList<Task> taskList;
     private HBox columnHolder;// all columns will be held by a HBox(just for now) at the center
+    private ArrayList<VBox> columnsList;
 
 
 
@@ -33,6 +35,7 @@ public class Project {
         this.stage = stage;
         this.columnHolder = new HBox(12);
         this.taskList = new ArrayList<>();
+        this.columnsList = new ArrayList<>();
         this.createProject();
     }
 
@@ -221,15 +224,28 @@ public class Project {
     /**
      * show all columns contained by the project
      */
-    private void loadColumn() {
+    public void loadColumn() {
         this.columnHolder.getChildren().clear();
         for(String each : this.columns) {
             // each column is a VBox
             VBox column = new VBox(8);
+            column.setId(each);// each VBox has an ID same as column name
             Text cName = new Text(each);
             column.getChildren().add(cName);
             columnHolder.getChildren().add(column);
+            columnsList.add(column);
         }
+        putTask();
+    }
+
+    private void putTask() {
+       for(VBox column : this.columnsList) {
+           for(Task task : this.taskList) {
+               if(column.getId().equals(task.getStatus())) {
+                   column.getChildren().add(task.getTaskInGridPane());
+               }
+           }
+       }
     }
 
     public static void sop(Object x){System.out.println(x);}
