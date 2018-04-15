@@ -1,12 +1,13 @@
 package TaskBoard;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -233,6 +234,7 @@ public class Project {
         for(String each : this.columns) {
             // each column is a VBox
             VBox column = new VBox(8);
+            column.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
             column.setId(each);// each VBox has an ID same as column name
             Text cName = new Text(each);
             column.getChildren().add(cName);

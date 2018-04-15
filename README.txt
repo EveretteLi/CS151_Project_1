@@ -18,4 +18,5 @@ Fix bug:
 Update new functionality(4/14/2018):
 	Tasks can sort themselves by time
 	Edit task can be done by cliking on task, they'll re-sorted after editting
+	add some color to distinguish logic groups
 ==========================================

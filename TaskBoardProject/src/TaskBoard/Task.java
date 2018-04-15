@@ -1,11 +1,12 @@
 package TaskBoard;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -112,6 +113,8 @@ public class Task implements Comparable<Task> {
 
     public GridPane getTaskInGridPane() {
         GridPane taskReport  = new GridPane();
+        taskReport.setBackground(
+                new Background(new BackgroundFill(Color.AQUA, CornerRadii.EMPTY, Insets.EMPTY)));
         Text name = new Text("Task Name: " + this.name);
         Text description = new Text("Description: " + this.description);
         Text dueDate = new Text("Due Date: " + this.dueDate);
