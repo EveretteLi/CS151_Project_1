@@ -241,11 +241,11 @@ public class Project {
             columnHolder.getChildren().add(column);
             columnsList.add(column);
         }
-        sop("pj TS size;: "+taskSet.size());
+//        sop("pj TS size;: "+taskSet.size());
         putTask();
-        for(Task task : this.taskSet){
-            sop(task.getName() + " : " + task.getDueDate());
-        }
+//        for(Task task : this.taskSet){
+//            sop(task.getName() + " : " + task.getDueDate());
+//        }
     }
 
     private void putTask() {

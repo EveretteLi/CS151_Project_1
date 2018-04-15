@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.IntStream;
 
 /**
  * Task class
@@ -192,8 +191,8 @@ public class Task implements Comparable<Task> {
         // get 2 string arrays
         String[] thatIntegerString = that.getDueDate().split("/");
         String[] thisIntegerString = this.getDueDate().split("/");
-        sop("that: "+Arrays.toString(thatIntegerString));
-        sop("this: "+Arrays.toString(thisIntegerString));
+//        sop("that: "+Arrays.toString(thatIntegerString));
+//        sop("this: "+Arrays.toString(thisIntegerString));
         // convert them to int[]
         int[] thatIntArray = new int[thatIntegerString.length];
         int[] thisIntArray = new int[thisIntegerString.length];
@@ -201,8 +200,8 @@ public class Task implements Comparable<Task> {
             thatIntArray[i] = Integer.parseInt(thatIntegerString[i]);
         for(int i = 0; i < thisIntArray.length; i++)
             thisIntArray[i] = Integer.parseInt(thisIntegerString[i]);
-        sop("int: "+Arrays.toString(thatIntArray));
-        sop("int: "+Arrays.toString(thisIntArray));
+//        sop("int: "+Arrays.toString(thatIntArray));
+//        sop("int: "+Arrays.toString(thisIntArray));
 
         //year
         if(thisIntArray[2] == thatIntArray[2]) {
@@ -230,8 +229,12 @@ public class Task implements Comparable<Task> {
     }
     @Override
     public int hashCode(){
-        Object[] getHash = new Object[]{name, description, status, dueDate};
-        return getHash.hashCode();
+        int result = 17;
+        result += 31 * this.name.hashCode();
+        result += 31 * this.description.hashCode();
+        result += 31 * this.status.hashCode();
+        result += 31 * this.dueDate.hashCode();
+        return result;
     }
     @Override
     public String toString() {
@@ -243,14 +246,21 @@ public class Task implements Comparable<Task> {
     public static void sop(Object x){ System.out.println(x);}
 
     public static void main(String[] args){
-        TreeSet<Integer> i = new TreeSet<>();
-        i.add(1);
-        i.add(2);
-        i.add(3);
-        sop(i);
-        i.remove(2);
-        i.add(0);
-        sop(i);
+        Task a = new Task();
+        a.name = "a";
+        a.description = "a";
+        a.status = "1";
+        a.dueDate = "1/1/1";
+        Task b = new Task();
+        b.name = "b";
+        b.description = "a";
+        b.status = "1";
+        b.dueDate = "1/1/1";
+        sop("Hash a : "+a.hashCode());
+        sop("Hash b : "+b.hashCode());
+        sop("a compare to b : " + a.compareTo(b));
+        sop("a eq to b : "+ a.equals(b));
+
 
     }
 
