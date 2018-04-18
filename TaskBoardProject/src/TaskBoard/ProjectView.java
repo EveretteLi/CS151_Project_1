@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,50 +15,33 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 /**
- * project class
+ * project view class
  * a project can contains multiple columns
  * and also stores all the Tasks that has been added to columns
  */
-public class Project {
-
+public class ProjectView implements ModelListener {
+    private ProjectModel project;// the project it shows
+    private TaskBoardModel taskBoard;// the task board where it aggregates
+    private HBox projectView;// how project should be viewed
     private Stage stage;
-    private String name;
-    private ArrayList<String> columns;
-    private TreeSet<Task> taskSet;
-    private HBox columnHolder;// all columns will be held by a HBox(just for now) at the center
-    private ArrayList<VBox> columnsList;
 
 
-
-    public Project(Stage stage) {
+    public ProjectView(Stage stage, TaskBoardModel taskBoard) {
+        this.project = new ProjectModel();
+        this.taskBoard = taskBoard;
+        projectView = new HBox(12);
         this.stage = stage;
-        this.columnHolder = new HBox(12);
-        this.taskSet = new TreeSet<>();
-        this.columnsList = new ArrayList<>();
-        this.createProject();
+        project.attach(this);
     }
 
-    public String getName() { return this.name; }
-    public void setName(String name) {this.name = name; }
-    public ArrayList<String> getColumns() { return columns; }
-
-    public void addColumn(String name) {
-        columns.add(name);
-    }
-    public void setColumnsTo(ArrayList<String> newColumns) { this.columns = newColumns; }
-    public TreeSet<Task> getTaskSet() {
-        return taskSet;
-    }
-    public void setTaskSet(TreeSet<Task> taskSet) {
-        this.taskSet = taskSet;
+    @Override
+    public void update() {
+        this.projectView = showProject();
+        taskBoard.updateAll();
     }
 
-    public void addTask() {
-        new Task(this);
-    }
-
-    public HBox getColumnHolder() {
-        return columnHolder;
+    public HBox getProjectView() {
+        return projectView;
     }
 
     /**
@@ -67,9 +49,15 @@ public class Project {
      */
     public void createProject() {
         // pop-up window
-        Stage createPop = new Stage();
-        createPop.initModality(Modality.APPLICATION_MODAL);
-        createPop.setTitle("New Project");
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("New Project");
+
+        taskBoard.addProject(project);// start add it in
+        taskBoard.setCurrentProjectModel(project);// set it to current running project
+
+        // =============Start make screen=============
+
         // grid panel for the pop-up window
         GridPane layout = new GridPane();
         layout.setAlignment(Pos.CENTER);
@@ -89,12 +77,23 @@ public class Project {
         Button remBtn = new Button("-");
         addAndRemove.getChildren().addAll(addBtn, remBtn);
         layout.add(addAndRemove, 0, 1);
+
         // add columns
         // each slide is in a HBox
         // a VBox will be used to holds all HBoxes
         VBox addColumnPane = new VBox(8);
         ArrayList<TextField> columnsList = new ArrayList<>();
         layout.add(addColumnPane, 0, 2);
+        // create and the cancel button
+        HBox btnPane = new HBox(8);
+        Button createBtn = new Button("Create");
+        Button cancelBtn = new Button("Cancel");
+        btnPane.getChildren().addAll(createBtn, cancelBtn);
+        layout.add(btnPane, 0,3);
+
+        // =============End make screen=============
+
+        //listeners
         // addBtn listener
         addBtn.setOnAction(e -> {
             HBox newColumn = new HBox(8);
@@ -103,43 +102,31 @@ public class Project {
             columnsList.add(tempField);
             newColumn.getChildren().addAll(tempText, tempField);
             addColumnPane.getChildren().add(newColumn);
-        });
-        // fire the addBtn 3 time
+        });// fire the addBtn 3 time
         IntStream.range(0, 3).forEach(i -> addBtn.fire());
         // remBtn listener
         remBtn.setOnAction(e -> {
             if(addColumnPane.getChildren().size() > 1){
+                columnsList.remove(columnsList.size()-1);
                 addColumnPane.getChildren().remove(addColumnPane.getChildren().size()-1);
             }
         });
-        // create and the cancel button
-        HBox btnPane = new HBox(8);
-        Button createBtn = new Button("Create");
-        Button cancelBtn = new Button("Cancel");
-        btnPane.getChildren().addAll(createBtn, cancelBtn);
-        layout.add(btnPane, 0,3);
-        //listeners
         createBtn.setOnAction(e -> {
-             this.name = nameField.getText();// get name
-             this.columns = new ArrayList<>();
-            // for each text field, get column name
+             project.setName(nameField.getText());// set name
+            project.setColumns(new ArrayList<String>());
             for(TextField each : columnsList) {
-                this.columns.add(each.getText());
+                project.addColumn(each.getText());
             }
-            // reset stage title
-            stage.setTitle("Main Screen: " + this.name);
-            // load columns
-            loadColumn();
-            createPop.close();
+            stage.close();
         });
         cancelBtn.setOnAction(e -> {
-            createPop.close();
+            stage.close();
         });
 
         //set scene
         Scene cpScene = new Scene(layout, Main.POPUPWIDTH, Main.POPUPHIGHT);
-        createPop.setScene(cpScene);
-        createPop.show();
+        stage.setScene(cpScene);
+        stage.show();
     }
 
     /**
@@ -148,9 +135,11 @@ public class Project {
      * almost the same as create project
      */
     public void editProject() {
-        Stage createPop = new Stage();
-        createPop.initModality(Modality.APPLICATION_MODAL);
-        createPop.setTitle(name);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(project.getName());
+
+        // =============Start make screen=============
 
         GridPane layout = new GridPane();
         layout.setAlignment(Pos.CENTER);
@@ -158,7 +147,7 @@ public class Project {
         //name: [  ]
         HBox namePane = new HBox(8);
         Text nameText = new Text("Project Name:");
-        TextField nameField = new TextField(name);
+        TextField nameField = new TextField(project.getName());
         namePane.getChildren().addAll(nameText, nameField);
         layout.add(namePane, 0,0);
 
@@ -171,7 +160,7 @@ public class Project {
         // all the columns
         VBox addColumnPane = new VBox(8);
         ArrayList<TextField> columnsList = new ArrayList<>();;
-        for(String each : columns) {
+        for(String each : project.getColumns()) {
             HBox oneColumn = new HBox(8);
             Text tempNameText = new Text("Column name:");
             TextField tempField = new TextField(each);
@@ -180,6 +169,17 @@ public class Project {
             addColumnPane.getChildren().add(oneColumn);
         }
         layout.add(addColumnPane, 0, 2);
+
+        //buttons
+        HBox btnPane = new HBox(8);
+        Button doneBtn = new Button("Done");
+        Button cancelBtn = new Button("Cancel");
+        btnPane.getChildren().addAll(doneBtn, cancelBtn);
+        layout.add(btnPane, 0,3);
+
+        // =============End make screen=============
+
+        //listeners
         // addBtn listener
         addBtn.setOnAction(e -> {
             HBox newColumn = new HBox(8);
@@ -196,67 +196,59 @@ public class Project {
                 columnsList.remove(columnsList.size()-1);
             }
         });
-        //buttons
-        HBox btnPane = new HBox(8);
-        Button doneBtn = new Button("Done");
-        Button cancelBtn = new Button("Cancel");
-        btnPane.getChildren().addAll(doneBtn, cancelBtn);
-        layout.add(btnPane, 0,3);
-        //listeners
         doneBtn.setOnAction(e -> {
-            this.name = nameField.getText();
-            this.columns = new ArrayList<>();
+            project.setName(nameField.getText());
+            project.setColumns(new ArrayList<String>());
             for(TextField each : columnsList) {
-                columns.add(each.getText());
+                project.addColumn(each.getText());
             }
-            stage.setTitle("Main Screen: " + this.name);
-            // load columns
-            loadColumn();
-            createPop.close();
+            stage.close();
         });
         cancelBtn.setOnAction(e -> {
-            createPop.close();
+            stage.close();
         });
 
-        // load column
-        loadColumn();
         //set scene
         Scene cpScene = new Scene(layout, Main.POPUPWIDTH, Main.POPUPHIGHT);
-        createPop.setScene(cpScene);
-        createPop.show();
+        stage.setScene(cpScene);
+        stage.show();
     }
 
     /**
-     * show all columns contained by the project
+     * return the project in a HBox
      */
-    public void loadColumn() {
-        this.columnHolder.getChildren().clear();
-        for(String each : this.columns) {
+    public HBox showProject() {
+        HBox columnHolder = new HBox(12);
+        ArrayList<VBox> columnsList = new ArrayList<>();
+        ArrayList<TaskView> taskViews = new ArrayList<>();
+
+        for(TaskModel each : project.getTaskSet()) {
+            taskViews.add(new TaskView(new Stage(), project, each));
+        }
+
+        for (String each : project.getColumns()) {
             // each column is a VBox
             VBox column = new VBox(8);
+            column.setPadding(new Insets(12));
             column.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
             column.setId(each);// each VBox has an ID same as column name
             Text cName = new Text(each);
             column.getChildren().add(cName);
-            columnHolder.getChildren().add(column);
             columnsList.add(column);
         }
 //        sop("pj TS size;: "+taskSet.size());
-        putTask();
-//        for(Task task : this.taskSet){
-//            sop(task.getName() + " : " + task.getDueDate());
-//        }
+        for (TaskView each : taskViews) {
+            for (VBox column : columnsList) {
+                column.setPrefSize(100, Main.POPUPHIGHT);
+                if (column.getId().equals(each.getTask().getStatus())) {
+                    column.getChildren().add(each.getTaskForm());
+                }
+            }
+        }
+        for(VBox each : columnsList) {
+            columnHolder.getChildren().add(each);
+        }
+        return columnHolder;
     }
-
-    private void putTask() {
-       for(Task task : this.taskSet) {
-           for(VBox column : this.columnsList) {
-               if(column.getId().equals(task.getStatus())) {
-                   column.getChildren().add(task.getTaskInGridPane());
-               }
-           }
-       }
-    }
-
     public static void sop(Object x){System.out.println(x);}
 }

@@ -19,7 +19,7 @@ public class Login {
     private final String USERNAME = "admin";// username
     private final String PASSWORD  = "123";// password
 
-    public Login(Stage stage) {
+    public Login(Stage stage) throws Exception {
         loginStage = stage;
         loginStage.setTitle("Login");
 
@@ -36,7 +36,11 @@ public class Login {
         // once it got clicked, jump to main screen stage
         loginBtn.setOnAction(e -> {
             if(checkValidity(username.getText(), password.getText())) {
-                Main.toMainScreen();
+                try{
+                    Main.toMainScreen();
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
                 this.loginStage.close();
             }
         });

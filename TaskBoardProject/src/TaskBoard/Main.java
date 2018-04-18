@@ -29,12 +29,12 @@ public class Main extends Application {
     /**
      * start a new login stage
      */
-    public static void toLogin() { new Login(new Stage()); }
+    public static void toLogin() throws Exception { new Login(new Stage()); }
 
     /**
      * start a new main screen stage
      */
-    public static void toMainScreen() { new MainScreen(new Stage()); }
+    public static void toMainScreen() throws Exception { new MainScreen(new Stage()); }
 
     /**
      * get primary stage that has been passed into start()

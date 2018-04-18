@@ -19,4 +19,8 @@ Update new functionality(4/14/2018):
 	Tasks can sort themselves by time
 	Edit task can be done by cliking on task, they'll re-sorted after editting
 	add some color to distinguish logic groups
+------------------------------------------
+Update whole model(4/17/2018):
+	change the model into more MVC looking structure
+	adding new Interface ModelListener
 ==========================================
