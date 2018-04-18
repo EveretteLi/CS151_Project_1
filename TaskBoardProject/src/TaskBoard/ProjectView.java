@@ -26,8 +26,9 @@ public class ProjectView implements ModelListener {
     private Stage stage;
 
 
-    public ProjectView(Stage stage, TaskBoardModel taskBoard) {
-        this.project = new ProjectModel();
+    public ProjectView(Stage stage, TaskBoardModel taskBoard, ProjectModel project) {
+        this.stage = stage;
+        this.project = project;
         this.taskBoard = taskBoard;
         projectView = new HBox(12);
         this.stage = stage;
@@ -36,6 +37,7 @@ public class ProjectView implements ModelListener {
 
     @Override
     public void update() {
+        //sop("Project update got called");
         this.projectView = showProject();
         taskBoard.updateAll();
     }
@@ -223,7 +225,7 @@ public class ProjectView implements ModelListener {
         ArrayList<TaskView> taskViews = new ArrayList<>();
 
         for(TaskModel each : project.getTaskSet()) {
-            taskViews.add(new TaskView(new Stage(), project, each));
+            taskViews.add(new TaskView(this.stage, project, each));
         }
 
         for (String each : project.getColumns()) {
@@ -248,6 +250,7 @@ public class ProjectView implements ModelListener {
         for(VBox each : columnsList) {
             columnHolder.getChildren().add(each);
         }
+        //sop("show project got called");
         return columnHolder;
     }
     public static void sop(Object x){System.out.println(x);}

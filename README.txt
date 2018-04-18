@@ -23,4 +23,6 @@ Update new functionality(4/14/2018):
 Update whole model(4/17/2018):
 	change the model into more MVC looking structure
 	adding new Interface ModelListener
+	add save and load functionality
+	add logout
 ==========================================
