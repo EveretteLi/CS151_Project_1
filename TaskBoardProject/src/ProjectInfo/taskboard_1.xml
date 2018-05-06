@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_111" class="java.beans.XMLDecoder">
+ <object class="TaskBoard.TaskBoardModel" id="TaskBoardModel0">
+  <void property="currentProjectModel">
+   <object class="TaskBoard.ProjectModel" id="ProjectModel0">
+    <void property="columns">
+     <void method="add">
+      <string>TODO</string>
+     </void>
+     <void method="add">
+      <string>In progress</string>
+     </void>
+     <void method="add">
+      <string>Done</string>
+     </void>
+    </void>
+    <void property="name">
+     <string>Sample Project 1</string>
+    </void>
+    <void property="taskSet">
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1525591274064</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>!!!</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-05-04</string>
+       </void>
+       <void property="name">
+        <string>I&apos;m in progress</string>
+       </void>
+       <void property="status">
+        <string>In progress</string>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1525591218447</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>This is task 1
+1&gt;
+2&gt;
+3&gt;
+...</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-05-06</string>
+       </void>
+       <void property="name">
+        <string>Task_1</string>
+       </void>
+       <void property="status">
+        <string>TODO</string>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1525591248188</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>This is task 2</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-05-06</string>
+       </void>
+       <void property="name">
+        <string>Task_2</string>
+       </void>
+       <void property="status">
+        <string>TODO</string>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1525591257164</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>This is task 3</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-05-06</string>
+       </void>
+       <void property="name">
+        <string>Task_3</string>
+       </void>
+       <void property="status">
+        <string>TODO</string>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1525591308423</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>???</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-05-06</string>
+       </void>
+       <void property="name">
+        <string>I&apos;m done</string>
+       </void>
+       <void property="status">
+        <string>Done</string>
+       </void>
+      </object>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void property="projectList">
+   <void method="add">
+    <object idref="ProjectModel0"/>
+   </void>
+   <void method="add">
+    <object class="TaskBoard.ProjectModel" id="ProjectModel1">
+     <void property="columns">
+      <void method="add">
+       <string>A</string>
+      </void>
+      <void method="add">
+       <string>B</string>
+      </void>
+      <void method="add">
+       <string>C</string>
+      </void>
+      <void method="add">
+       <string>D</string>
+      </void>
+      <void method="add">
+       <string>E</string>
+      </void>
+     </void>
+     <void property="name">
+      <string>Shopping List</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

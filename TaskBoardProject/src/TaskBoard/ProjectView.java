@@ -449,7 +449,6 @@ public class ProjectView implements ModelListener {
             }
 
             if(nameField.getText().equals("")) {errorText.setText("Input invalid: project name cannot be empty. "); return; }
-            else if(taskBoard.getProjectsName().contains(nameField.getText())) {errorText.setText("Project already exist."); return;}
             project.setName(nameField.getText());// set name
             // get old and new columns
             ArrayList<String> preColumnList = project.getColumns();
