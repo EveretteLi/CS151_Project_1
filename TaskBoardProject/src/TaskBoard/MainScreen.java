@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +28,8 @@ public class MainScreen implements ModelListener {
     private TaskBoardModel currentBoard;// the current project showing
     private ProjectView currentProjectView;
     private Button newProjectBtn, editBtn, saveBtn, loadBtn, logoutBtn;
+    private ChoiceBox<String> projectPicker;
+    private HBox top;
 
     /**
      * Make the main screen scene
@@ -35,6 +38,7 @@ public class MainScreen implements ModelListener {
     public MainScreen(Stage stage) throws Exception {
         mainScreenStage = stage;
         boardLayout = new BorderPane();
+        top = new HBox(12);
         boardLayout.setStyle("-fx-background-color: #FFFFFF");
         boardLayout.setMinSize(Main.WINDOWHIGHT, Main.WINDOWWIDTH);
         BorderPane.clearConstraints(boardLayout);
@@ -89,10 +93,9 @@ public class MainScreen implements ModelListener {
         // Save: save current project
         // Load: load a existing project
         // Logout
-        HBox top = new HBox(12);
         DropShadow shadow = new DropShadow();
-        shadow.setOffsetX(6);
-        shadow.setOffsetY(5);
+        shadow.setOffsetX(10);
+        shadow.setOffsetY(3);
         this.newProjectBtn = new Button("New Project");
         this.editBtn = new Button("Edit");
         editBtn.setDisable(true);
@@ -105,30 +108,32 @@ public class MainScreen implements ModelListener {
         top.setPadding(new Insets(12));
         // UI
         for(Node each : top.getChildren()) {
-            each.setStyle("-fx-background-color: #FFFFFF");
-            each.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-                each.setStyle("-fx-background-color: deepskyblue");
-                each.setEffect(shadow);
-            });
-            each.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
                 each.setStyle("-fx-background-color: #FFFFFF");
-                each.setEffect(null);
-            });
-
+                each.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+                    each.setStyle("-fx-background-color: deepskyblue");
+                    each.setEffect(shadow);
+                });
+                each.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+                    each.setStyle("-fx-background-color: #FFFFFF");
+                    each.setEffect(null);
+                });
         }
+        HBox pickerBox = new HBox(8);
+        pickerBox.setId("picker_box");
+        pickerBox.setAlignment(Pos.CENTER);
+        Label pickerLb = new Label("project -> ");
+        this.projectPicker = new ChoiceBox<>();
+        projectPicker.setStyle("-fx-background-color: white");
+        pickerBox.getChildren().setAll(pickerLb, projectPicker);
+        top.getChildren().add(pickerBox);
         boardLayout.setTop(top);
         // =============End make screen=============
 
         // new project
         newProjectBtn.setOnAction(e -> {
-            if(Main.DIRTY) {
-                if(needSave()) return;
-            }
-            currentProjectView = new ProjectView(this.mainScreenStage, currentBoard, new ProjectModel());
-            update();
-            currentBoard.setCurrentProjectModel(new ProjectModel()); // empty project as place holder
+            currentProjectView = new ProjectView(mainScreenStage, currentBoard, new ProjectModel());
             currentProjectView.createProject();
-            Main.DIRTY = false;
+            currentBoard.setCurrentProjectModel(currentProjectView.getProject());
         });
         // edit
         editBtn.setOnAction(e -> {
@@ -179,6 +184,18 @@ public class MainScreen implements ModelListener {
             }
 
         });
+
+        projectPicker.setOnAction(e -> {
+            int p = 0;
+            for(int i = 0; i < currentBoard.getProjectList().size(); i++) {
+                if(currentBoard.getProjectList().get(i).getName().equals(projectPicker.getValue()))
+                    p = i;
+            }
+            currentBoard.setCurrentProjectModel(currentBoard.getProjectList().get(p));
+            currentProjectView = new ProjectView(mainScreenStage, currentBoard, currentBoard.getProjectList().get(p));
+            currentProjectView.update();
+        });
+
     }
 
     public void update() {
@@ -187,6 +204,9 @@ public class MainScreen implements ModelListener {
         sp.setMinHeight(Main.WINDOWHIGHT);
         boardLayout.setCenter(sp);
         sp.setContent(currentProjectView.getProjectView());
+
+        projectPicker.getItems().setAll(currentBoard.getProjectsName());
+
         if(currentBoard.getProjectList().size() != 0
                 && currentBoard.getCurrentProjectModel().getColumns().size() > 0) {
             editBtn.setDisable(false);

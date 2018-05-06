@@ -33,10 +33,6 @@ public class TaskBoardModel {
         this.name = name;
         updateAll();
     }
-    public void setFilename(String filename) {
-        this.filename = filename;
-        updateAll();
-    }
     public void setProjectList(ArrayList<ProjectModel> projectList) {
         this.projectList = projectList;
         updateAll();
@@ -62,5 +58,11 @@ public class TaskBoardModel {
         updateAll();
     }
 
+    public ArrayList<String> getProjectsName() {
+        ArrayList<String> nameList = new ArrayList<>();
+        for(ProjectModel each : this.projectList)
+            nameList.add(each.getName());
+        return nameList;
+    }
 
 }

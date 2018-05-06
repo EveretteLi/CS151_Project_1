@@ -30,4 +30,5 @@ Update whole model(5/5/2018):
 	Conplete UI design
 	add safe input delection
 	add alert for saving and task deletion
+	add project picker(chiose box on main screen for project picking)
 ==========================================

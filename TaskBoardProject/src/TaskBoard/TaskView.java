@@ -124,7 +124,7 @@ public class TaskView implements ModelListener {
         desText.setFill(color);
         desText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 20));
         TextArea desArea = new TextArea();
-        desArea.setPrefSize(100, 150);
+        desArea.setMaxSize(300, 200);
         desArea.setPromptText("Enter task description");
         description.getChildren().addAll(desText, desArea);
 
@@ -188,7 +188,7 @@ public class TaskView implements ModelListener {
         Text name = new Text("Task Name: " + task.getName());
         name.setFont(Font.font("verdana", FontWeight.BOLD, 15));
         name.setFill(Color.BLACK);
-        Text description = new Text("Description: " + task.getDescription());
+        Text description = new Text("Description: \n" + task.getDescription());
         description.setFont(Font.font("verdana", 15));
         description.setFill(Color.DARKGRAY);
         Text addDate = new Text("Add Date: " + task.getAddDate());
@@ -290,7 +290,7 @@ public class TaskView implements ModelListener {
         desText.setFill(color);
         desText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 20));
         TextArea desArea = new TextArea(task.getDescription());
-        desArea.setPrefSize(100, 150);
+        desArea.setMaxSize(300, 200);
         description.getChildren().addAll(desText, desArea);
 
         // create and Cancel button

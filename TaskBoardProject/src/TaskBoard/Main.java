@@ -54,7 +54,6 @@ public class Main extends Application {
         ArrayList<Color> colors = new ArrayList<>();
         colors.add(Color.LIGHTSEAGREEN);
         colors.add(Color.TEAL);
-        colors.add(Color.PALEVIOLETRED);
         colors.add(Color.DARKSLATEBLUE);
         colors.add(Color.LIGHTSLATEGREY);
 
