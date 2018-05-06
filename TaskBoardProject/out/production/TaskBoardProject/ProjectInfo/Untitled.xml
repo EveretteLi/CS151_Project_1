@@ -5,37 +5,55 @@
    <object class="TaskBoard.ProjectModel" id="ProjectModel0">
     <void property="columns">
      <void method="add">
-      <string>todo</string>
+      <string>a</string>
      </void>
      <void method="add">
-      <string></string>
+      <string>b</string>
      </void>
      <void method="add">
-      <string></string>
-     </void>
-     <void method="add">
-      <string></string>
+      <string>c</string>
      </void>
     </void>
     <void property="name">
-     <string>test2</string>
+     <string>P</string>
     </void>
     <void property="taskSet">
      <void method="add">
       <object class="TaskBoard.TaskModel">
        <void property="dateForCompare">
         <object class="java.util.Date">
-         <long>1524606586603</long>
+         <long>1524438628312</long>
         </object>
        </void>
        <void property="dueDate">
-        <string>2018-04-23</string>
+        <string>2018-04-02</string>
        </void>
        <void property="name">
-        <string>hello</string>
+        <string>t2</string>
        </void>
        <void property="status">
-        <string>todo</string>
+        <string>b</string>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1524438573610</long>
+        </object>
+       </void>
+       <void property="description">
+        <string>this is t1</string>
+       </void>
+       <void property="dueDate">
+        <string>2018-04-21</string>
+       </void>
+       <void property="name">
+        <string>t1</string>
+       </void>
+       <void property="status">
+        <string>b</string>
        </void>
       </object>
      </void>

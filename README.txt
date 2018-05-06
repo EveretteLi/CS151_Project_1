@@ -25,4 +25,9 @@ Update whole model(4/17/2018):
 	adding new Interface ModelListener
 	add save and load functionality
 	add logout
+------------------------------------------
+Update whole model(5/5/2018):
+	Conplete UI design
+	add safe input delection
+	add alert for saving and task deletion
 ==========================================

@@ -1,6 +1,7 @@
 package TaskBoard;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -45,9 +46,9 @@ public class ProjectModel {
         listeners.add(listener);
     }
     public void updateAll() {
-        for(ModelListener each : listeners) {
-            each.update();
-        }
+        Main.DIRTY = true;
+        if(!listeners.isEmpty())
+            listeners.get(0).update();
     }
 
     /**

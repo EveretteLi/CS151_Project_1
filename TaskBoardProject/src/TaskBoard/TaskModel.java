@@ -1,19 +1,37 @@
 package TaskBoard;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+
 
 /**
  * task model
  */
 public class TaskModel implements Comparable<TaskModel> {
     private String name, description, dueDate, status;
+    private LocalDate addDate;
+    private Date dateForCompare;
     ArrayList<ModelListener> listeners = new ArrayList<>();
+
+    public TaskModel(TaskModel task) {
+        this.name = task.name;
+        this.description = task.description;
+        this.dueDate = task.dueDate;
+        this.status = task.status;
+        this.addDate = task.addDate;
+        this.dateForCompare = task.dateForCompare;
+    }
 
     public TaskModel(){
         this.name = "Task 1";
         this.description = "";
         this.dueDate = "0/0/0";
         this.status = "";
+        this.addDate = LocalDate.now();
+        this.dateForCompare = Calendar.getInstance().getTime();
     }
 
     public String getName() {
@@ -28,6 +46,17 @@ public class TaskModel implements Comparable<TaskModel> {
     public String getStatus() {
         return status;
     }
+    public LocalDate getAddDate(){ return addDate; }
+    public Date getDateForCompare() { return dateForCompare; }
+    public void setDateForCompare(Date date) {
+        this.dateForCompare = date;
+        updateAll();
+    }
+    public void setAddDate(LocalDate addDate) {
+        this.addDate = addDate;
+        updateAll();
+    }
+
     public void setName(String name) {
         this.name = name;
         updateAll();
@@ -58,15 +87,15 @@ public class TaskModel implements Comparable<TaskModel> {
      * update all UI
      */
     public void updateAll() {
-        for(ModelListener each : listeners) {
-            each.update();
-        }
+        Main.DIRTY = true;
+        if(!listeners.isEmpty())
+            listeners.get(0).update();
     }
 
     public int compareTo(TaskModel that) {
         // get 2 string arrays
-        String[] thatIntegerString = that.getDueDate().split("/");
-        String[] thisIntegerString = this.getDueDate().split("/");
+        String[] thatIntegerString = that.getDueDate().split("-");
+        String[] thisIntegerString = this.getDueDate().split("-");
 //        sop("that: "+Arrays.toString(thatIntegerString));
 //        sop("this: "+Arrays.toString(thisIntegerString));
         // convert them to int[]
@@ -80,18 +109,28 @@ public class TaskModel implements Comparable<TaskModel> {
 //        sop("int: "+Arrays.toString(thisIntArray));
 
         //year
-        if(thisIntArray[2] == thatIntArray[2]) {
+        if(thisIntArray[0] == thatIntArray[0]) {
             // month
-            if(thisIntArray[0] == thatIntArray[0]) {
+            if(thisIntArray[1] == thatIntArray[1]) {
                 //day
-                return thisIntArray[1] - thatIntArray[1];
+                if(thisIntArray[2] == thatIntArray[2]) {
+                    //by add date
+                    if(addDate.compareTo(that.addDate) == 0) {
+                        // by time
+                        return dateForCompare.compareTo(that.dateForCompare);
+                    } else {
+                        return addDate.compareTo(that.addDate);
+                    }
+                } else {
+                    return thisIntArray[2] - thatIntArray[2];
+                }
             }
             else{
-                return thisIntArray[0] - thatIntArray[0];
+                return thisIntArray[1] - thatIntArray[1];
             }
         }
         else{
-            return thisIntArray[2] - thatIntArray[2];
+            return thisIntArray[0] - thatIntArray[0];
         }
     }
     @Override
@@ -105,12 +144,7 @@ public class TaskModel implements Comparable<TaskModel> {
     }
     @Override
     public int hashCode(){
-        int result = 17;
-        result += 31 * this.name.hashCode();
-        result += 31 * this.description.hashCode();
-        result += 31 * this.status.hashCode();
-        result += 31 * this.dueDate.hashCode();
-        return result;
+        return Objects.hash(name, description, status, dueDate, addDate);
     }
 
     // debug use

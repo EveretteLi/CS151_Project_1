@@ -13,9 +13,10 @@ public class TaskBoardModel {
         listeners.add(listener);
     }
     public void updateAll() {
-        for(ModelListener each : listeners) {
-            each.update();
-        }
+        Main.DIRTY = true;
+
+        if (!listeners.isEmpty())
+            listeners.get(0).update();
     }
 
     public TaskBoardModel() {

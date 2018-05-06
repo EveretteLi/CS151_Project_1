@@ -1,14 +1,20 @@
 package TaskBoard;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 /**
  * This class modifies the functionality in login
  */
@@ -23,15 +29,79 @@ public class Login {
         loginStage = stage;
         loginStage.setTitle("Login");
 
+        GridPane layout = new GridPane();
+        Color tempSceneColor = Main.RandomColorGenerator();
+
+        DropShadow shadow = new DropShadow();
+        shadow.setOffsetX(10);
+        shadow.setOffsetY(3);
+        //text part
+        layout.setAlignment(Pos.CENTER);
+        layout.setBackground(new Background(new BackgroundFill(tempSceneColor, CornerRadii.EMPTY, Insets.EMPTY)));
+        VBox texts = new VBox(2);
+        texts.setMinWidth(Main.POPUPWIDTH/2);
+        Text task = new Text("WELLCOME\nTO\nTASK\nBOARD:");
+        task.setFill(Color.WHITE);
+        task.setFont(Font.font("verdana", FontWeight.BLACK, FontPosture.REGULAR, 65));
+        texts.getChildren().addAll(task);
+        texts.setPadding(new Insets(12));
+        texts.setAlignment(Pos.CENTER);
+
         // set login layout
+        VBox wrapper = new VBox();
+        wrapper.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        wrapper.setAlignment(Pos.CENTER_RIGHT);
+
         VBox loginLayout = new VBox(20);
         loginLayout.setAlignment(Pos.CENTER);
+        loginLayout.setPadding(new Insets(Main.POPUPWIDTH/16));
+
+        Label loginText = new Label("LOGIN");
+        loginText.setTextFill(tempSceneColor);
+        loginText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR,20 ));
+
+        // username
+        VBox usernameBox = new VBox();
+        usernameBox.setBackground
+                (new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
+        usernameBox.setPadding(new Insets(12));
+        usernameBox.setAlignment(Pos.CENTER_LEFT);
+        Label usernameText = new Label("Username:");
+        usernameText.setTextFill(tempSceneColor);
+        usernameText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+        usernameText.setMaxWidth(Main.POPUPWIDTH/8);
         TextField username = new TextField();
         username.setPromptText("Enter your username");
-        TextField password = new TextField("");
+        username.setMaxWidth(Main.POPUPWIDTH/4);
+        usernameBox.getChildren().addAll(usernameText, username);
+        // password
+        VBox passwordBox = new VBox();
+        passwordBox.setBackground
+                (new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        passwordBox.setPadding(new Insets(12));
+        passwordBox.setAlignment(Pos.CENTER_LEFT);
+        Label passwordText = new Label("Password:");
+        passwordText.setTextFill(tempSceneColor);
+        passwordText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
+        passwordText.setMaxWidth(Main.POPUPWIDTH/8);
+        TextField password = new TextField();
         password.setPromptText("Enter your password");
+        password.setMaxWidth(Main.POPUPWIDTH/4);
+        passwordBox.getChildren().addAll(passwordText, password);
+
+
         Button loginBtn = new Button("Login");
-        loginLayout.getChildren().addAll(username, password, loginBtn, errorMsg);
+        loginBtn.setMinWidth(Main.POPUPWIDTH/4);
+        loginBtn.setEffect(shadow);
+        loginBtn.setStyle("-fx-background-color: #FFFFFF");
+        loginBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            loginBtn.setStyle("-fx-background-color: dodgerblue");
+        });
+        loginBtn.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            loginBtn.setStyle("-fx-background-color: #FFFFFF");
+        });
+        loginLayout.getChildren().addAll(loginText, usernameBox, passwordBox, loginBtn, errorMsg);
+        wrapper.getChildren().addAll(loginLayout);
         // loginBtn listener
         // once it got clicked, jump to main screen stage
         loginBtn.setOnAction(e -> {
@@ -44,8 +114,10 @@ public class Login {
                 this.loginStage.close();
             }
         });
+        layout.add(texts, 0,0);
+        layout.add(wrapper, 1,0);
         //set login scene
-        loginStage.setScene(new Scene(loginLayout, 300, 600));
+        loginStage.setScene(new Scene(layout, Main.POPUPWIDTH, Main.POPUPHIGHT));
         loginStage.show();
     }
 

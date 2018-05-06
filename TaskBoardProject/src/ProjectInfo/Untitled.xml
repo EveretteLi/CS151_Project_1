@@ -5,64 +5,55 @@
    <object class="TaskBoard.ProjectModel" id="ProjectModel0">
     <void property="columns">
      <void method="add">
-      <string>1</string>
+      <string>a</string>
      </void>
      <void method="add">
-      <string>2</string>
+      <string>b</string>
      </void>
      <void method="add">
-      <string>3</string>
-     </void>
-     <void method="add">
-      <string>10</string>
-     </void>
-     <void method="add">
-      <string>12</string>
+      <string>c</string>
      </void>
     </void>
     <void property="name">
-     <string>p1</string>
+     <string>P</string>
     </void>
     <void property="taskSet">
      <void method="add">
       <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1524438628312</long>
+        </object>
+       </void>
        <void property="dueDate">
-        <string>1/1/1</string>
+        <string>2018-04-02</string>
        </void>
        <void property="name">
-        <string>1</string>
+        <string>t2</string>
        </void>
        <void property="status">
-        <string>1</string>
+        <string>b</string>
        </void>
       </object>
      </void>
      <void method="add">
       <object class="TaskBoard.TaskModel">
+       <void property="dateForCompare">
+        <object class="java.util.Date">
+         <long>1524438573610</long>
+        </object>
+       </void>
        <void property="description">
-        <string>2</string>
+        <string>this is t1</string>
        </void>
        <void property="dueDate">
-        <string>2/2/2</string>
+        <string>2018-04-21</string>
        </void>
        <void property="name">
-        <string>2</string>
+        <string>t1</string>
        </void>
        <void property="status">
-        <string>12</string>
-       </void>
-      </object>
-     </void>
-     <void method="add">
-      <object class="TaskBoard.TaskModel">
-       <void property="dueDate">
-        <string>3/3/3</string>
-       </void>
-       <void property="name">
-        <string>3</string>
-       </void>
-       <void property="status">
-        <string>3</string>
+        <string>b</string>
        </void>
       </object>
      </void>
