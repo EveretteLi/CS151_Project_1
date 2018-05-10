@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +24,7 @@ public class Login {
     private Stage loginStage;// login has it's own stage
     private Text errorMsg = new Text("");// empty
     private final String USERNAME = "admin";// username
-    private final String PASSWORD  = "123";// password
+    private final String PASSWORD  = "admin1234";// password
 
     public Login(Stage stage) throws Exception {
         loginStage = stage;
@@ -84,7 +85,7 @@ public class Login {
         passwordText.setTextFill(tempSceneColor);
         passwordText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 17));
         passwordText.setMaxWidth(Main.POPUPWIDTH/8);
-        TextField password = new TextField();
+        PasswordField password = new PasswordField();
         password.setPromptText("Enter your password");
         password.setMaxWidth(Main.POPUPWIDTH/4);
         passwordBox.getChildren().addAll(passwordText, password);

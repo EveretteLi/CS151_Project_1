@@ -31,4 +31,9 @@ Update whole model(5/5/2018):
 	add safe input delection
 	add alert for saving and task deletion
 	add project picker(chiose box on main screen for project picking)
+------------------------------------------
+Update new features(5/10/2018):
+	use password fireld to carry password input in login
+Fix bug:
+	ScrollPane can't scroll
 ==========================================

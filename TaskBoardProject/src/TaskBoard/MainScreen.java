@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sun.security.krb5.SCDynamicStoreConfig;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -29,7 +30,6 @@ public class MainScreen implements ModelListener {
     private ProjectView currentProjectView;
     private Button newProjectBtn, editBtn, saveBtn, loadBtn, logoutBtn;
     private ChoiceBox<String> projectPicker;
-    private HBox top;
 
     /**
      * Make the main screen scene
@@ -38,10 +38,8 @@ public class MainScreen implements ModelListener {
     public MainScreen(Stage stage) throws Exception {
         mainScreenStage = stage;
         boardLayout = new BorderPane();
-        top = new HBox(12);
         boardLayout.setStyle("-fx-background-color: #FFFFFF");
-        boardLayout.setMinSize(Main.WINDOWHIGHT, Main.WINDOWWIDTH);
-        BorderPane.clearConstraints(boardLayout);
+        boardLayout.setPrefSize(Main.WINDOWHIGHT, Main.WINDOWWIDTH);
         currentBoard = new TaskBoardModel();
         currentBoard.attach(this);
 
@@ -103,6 +101,8 @@ public class MainScreen implements ModelListener {
         saveBtn.setDisable(true);
         this.loadBtn = new Button("Load");
         this.logoutBtn = new Button("Logout");
+
+        HBox top = new HBox(12);
         top.getChildren().addAll(
                 newProjectBtn, editBtn, saveBtn, loadBtn, logoutBtn);
         top.setPadding(new Insets(12));
@@ -121,7 +121,7 @@ public class MainScreen implements ModelListener {
         HBox pickerBox = new HBox(8);
         pickerBox.setId("picker_box");
         pickerBox.setAlignment(Pos.CENTER);
-        Label pickerLb = new Label("project -> ");
+        Label pickerLb = new Label("project >>> ");
         this.projectPicker = new ChoiceBox<>();
         projectPicker.setStyle("-fx-background-color: white");
         pickerBox.getChildren().setAll(pickerLb, projectPicker);
@@ -201,11 +201,11 @@ public class MainScreen implements ModelListener {
     public void update() {
         Main.DIRTY = true;
         ScrollPane sp = new ScrollPane();
-        sp.setMinHeight(Main.WINDOWHIGHT);
-        boardLayout.setCenter(sp);
         sp.setContent(currentProjectView.getProjectView());
-
-        projectPicker.getItems().setAll(currentBoard.getProjectsName());
+        boardLayout.setCenter(sp);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        currentProjectView.dragAndDrop();
 
         if(currentBoard.getProjectList().size() != 0
                 && currentBoard.getCurrentProjectModel().getColumns().size() > 0) {
@@ -216,8 +216,7 @@ public class MainScreen implements ModelListener {
             editBtn.setDisable(true);
             saveBtn.setDisable(true);
         }
-        currentProjectView.dragAndDrop();
-        sop("main got called");
+        projectPicker.getItems().setAll(currentBoard.getProjectsName());
     }
 
     private void promptSave() {
@@ -253,6 +252,4 @@ public class MainScreen implements ModelListener {
             }
             return false;
     }
-
-    public static void sop(Object x){ System.out.println(x);}
 }

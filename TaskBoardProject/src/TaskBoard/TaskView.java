@@ -160,7 +160,7 @@ public class TaskView implements ModelListener {
             }
             task.setName(nameField.getText());
             task.setDescription(desArea.getText());
-            task.setDueDate(datePicker.getValue().toString());
+            task.setDueDate(datePicker.getValue());
             task.setStatus(status.getValue());
             // add the changed task back in
             project.addTask(task);
@@ -279,7 +279,7 @@ public class TaskView implements ModelListener {
         ddText.setFill(color);
         ddText.setFont(Font.font("verdana", FontWeight.LIGHT, FontPosture.REGULAR, 20));
         DatePicker datePicker = new DatePicker();
-        datePicker.setValue(task.getAddDate());
+        datePicker.setValue(task.getDueDate());
         datePicker.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
         dueDate.getChildren().addAll(ddText, datePicker);
 
@@ -323,7 +323,7 @@ public class TaskView implements ModelListener {
             task.setName(nameField.getText());
             task.setDescription(desArea.getText());
             task.setStatus(status.getValue());
-            task.setDueDate(datePicker.getValue().toString());
+            task.setDueDate(datePicker.getValue());
             project.addTask(task);
             stage.close();
         });
@@ -333,10 +333,4 @@ public class TaskView implements ModelListener {
         stage.setScene(new Scene(editLayout, Main.POPUPWIDTH, Main.POPUPHIGHT));
         stage.show();
     }
-
-    public static void sop(Object x){ System.out.println(x);}
-
-    public static void main(String[] args){
-    }
-
 }

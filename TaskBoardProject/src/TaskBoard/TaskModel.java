@@ -11,7 +11,8 @@ import java.util.Objects;
  * task model
  */
 public class TaskModel implements Comparable<TaskModel> {
-    private String name, description, dueDate, status;
+    private String name, description, status;
+    private LocalDate dueDate;
     private LocalDate addDate;
     private Date dateForCompare;
     ArrayList<ModelListener> listeners = new ArrayList<>();
@@ -28,7 +29,7 @@ public class TaskModel implements Comparable<TaskModel> {
     public TaskModel(){
         this.name = "Task 1";
         this.description = "";
-        this.dueDate = "0/0/0";
+        this.dueDate = LocalDate.now();
         this.status = "";
         this.addDate = LocalDate.now();
         this.dateForCompare = Calendar.getInstance().getTime();
@@ -40,7 +41,7 @@ public class TaskModel implements Comparable<TaskModel> {
     public String getDescription() {
         return description;
     }
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
     public String getStatus() {
@@ -65,7 +66,7 @@ public class TaskModel implements Comparable<TaskModel> {
         this.description = description;
         updateAll();
     }
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
         updateAll();
     }
@@ -94,8 +95,8 @@ public class TaskModel implements Comparable<TaskModel> {
 
     public int compareTo(TaskModel that) {
         // get 2 string arrays
-        String[] thatIntegerString = that.getDueDate().split("-");
-        String[] thisIntegerString = this.getDueDate().split("-");
+        String[] thatIntegerString = that.getDueDate().toString().split("-");
+        String[] thisIntegerString = this.getDueDate().toString().split("-");
 //        sop("that: "+Arrays.toString(thatIntegerString));
 //        sop("this: "+Arrays.toString(thisIntegerString));
         // convert them to int[]

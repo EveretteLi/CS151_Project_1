@@ -43,7 +43,6 @@ public class ProjectView implements ModelListener {
 
     @Override
     public void update() {
-        //sop("Project update got called");
         this.projectView = showProject();
         taskBoard.updateAll();
     }
@@ -112,7 +111,6 @@ public class ProjectView implements ModelListener {
     }
 
     public HBox getProjectView() {
-        projectView = showProject();
         return projectView;
     }
 
@@ -474,7 +472,6 @@ public class ProjectView implements ModelListener {
             for(TaskModel each : temp) {
                 // set the new status
                 for(String oldColumnName : oldToNew.keySet()) {
-                    sop("Name: " + each.getName() + " : " + each.getStatus());
                     if(each.getStatus().equals(oldColumnName)) {
                         each.setStatus(oldToNew.get(oldColumnName));
                     }
@@ -512,7 +509,8 @@ public class ProjectView implements ModelListener {
      */
     public HBox showProject() {
         HBox columnHolder = new HBox(12);
-        columnHolder.setMinSize(stage.getWidth(), stage.getHeight());
+        columnHolder.setPrefSize(stage.getWidth(), stage.getHeight());
+        columnHolder.setAlignment(Pos.TOP_LEFT);
         columnHolder.setStyle("-fx-background-color: #FFFFFF");
 
         ArrayList<VBox> columnsList = new ArrayList<>();
@@ -558,7 +556,6 @@ public class ProjectView implements ModelListener {
             column.getChildren().addAll(cName, addTaskBtn);
             columnsList.add(column);
         }
-//        sop("pj TS size;: "+taskSet.size());
         for (TaskView each : taskViews) {
             for (VBox column : columnsList) {
                 if (column.getId().equals(each.getTask().getStatus())) {
@@ -566,20 +563,19 @@ public class ProjectView implements ModelListener {
                 }
             }
         }
-        for(VBox each : columnsList) {
-            columnHolder.getChildren().addAll(each);
-        }
-
         //UI
         for(VBox each : columnsList) {
             //UI part
-            each.setPrefSize(180, Main.WINDOWHIGHT);
+            each.setMinWidth(180);
+        }
 
+        for(VBox each : columnsList) {
+            columnHolder.getChildren().addAll(each);
         }
         // this delete area will be used in drag and drop function
         VBox deleteArea = new VBox(20);
         deleteArea.setId("delete");
-        deleteArea.setMinSize(150, Main.WINDOWHIGHT);
+        deleteArea.setMinWidth(180);
         Label deleteLb = new Label("X");
         deleteLb.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 300));
         deleteLb.setTextFill(Color.WHITE);
@@ -589,5 +585,4 @@ public class ProjectView implements ModelListener {
 
         return columnHolder;
     }
-    public static void sop(Object x){System.out.println(x);}
 }

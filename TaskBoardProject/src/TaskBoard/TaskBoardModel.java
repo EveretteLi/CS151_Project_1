@@ -64,5 +64,4 @@ public class TaskBoardModel {
             nameList.add(each.getName());
         return nameList;
     }
-
 }

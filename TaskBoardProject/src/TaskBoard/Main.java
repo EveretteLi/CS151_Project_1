@@ -61,10 +61,5 @@ public class Main extends Application {
         int next = picker.nextInt(colors.size());
         return colors.get(next);
     }
-
-    // main
-    public static void main(String[] args) {
-        launch();
-    }
 }
 
