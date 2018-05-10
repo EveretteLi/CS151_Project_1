@@ -472,7 +472,11 @@ public class ProjectView implements ModelListener {
             for(TaskModel each : temp) {
                 // set the new status
                 for(String oldColumnName : oldToNew.keySet()) {
-                    if(each.getStatus().equals(oldColumnName)) {
+                    // original column has been deleted
+                    if(each.getStatus() == null) {
+                        continue;
+                    }
+                    else if(each.getStatus().equals(oldColumnName)) {
                         each.setStatus(oldToNew.get(oldColumnName));
                     }
                 }
