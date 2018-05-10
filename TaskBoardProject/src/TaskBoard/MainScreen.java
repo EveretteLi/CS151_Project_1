@@ -156,6 +156,10 @@ public class MainScreen implements ModelListener {
         });
 
         loadBtn.setOnAction(e -> {
+            if(Main.DIRTY) {
+                if(needSave()) return;
+            }
+            Main.DIRTY = false;
             try{
                 FileChooser chooser = new FileChooser();
                 chooser.setTitle("Open TaskBoard");
